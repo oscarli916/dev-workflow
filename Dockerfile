@@ -25,6 +25,11 @@ RUN apt install -y automake pkg-config libevent-dev libncurses5-dev bison && \
     make install && \
     rm -rf /tmp/tmux
 
+# install locale
+RUN apt install -y locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
+
 # Create a dev user and group
 RUN groupadd -r -g 1001 dev && \
     useradd -r -u 1001 -g dev -m -s /bin/bash dev
