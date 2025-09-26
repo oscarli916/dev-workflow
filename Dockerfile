@@ -44,6 +44,7 @@ RUN chown -R dev:dev /home/dev
 
 # Set environment variables
 ENV TERM=xterm-256color
+ENV LANG=en_US.UTF-8
 
 # Switch to the non-root user
 USER dev
