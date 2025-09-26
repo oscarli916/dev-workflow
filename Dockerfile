@@ -37,6 +37,9 @@ COPY tmux/.tmux.conf /home/dev/.tmux.conf
 
 RUN chown -R dev:dev /home/dev
 
+# Set environment variables
+ENV TERM=xterm-256color
+
 # Switch to the non-root user
 USER dev
 
