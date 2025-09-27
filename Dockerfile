@@ -32,7 +32,12 @@ RUN apt install -y locales && \
 
 # Create a dev user and group
 RUN groupadd -r -g 1001 dev && \
-    useradd -r -u 1001 -g dev -m -s /bin/bash dev
+    useradd -m -u 1001 -g dev -s /bin/bash dev
+
+# Install sudo and allow passwordless sudo for the dev user
+RUN apt install -y sudo && \
+    echo "dev ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/dev && \
+    chmod 0440 /etc/sudoers.d/dev
 
 # Create neovim config directory for dev user
 RUN mkdir -p /home/dev/.config/nvim
@@ -49,7 +54,7 @@ ENV LANG=en_US.UTF-8
 # Switch to the non-root user
 USER dev
 
-WORKDIR /home/dev
+WORKDIR /home/dev/project
 
 # install fzf
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /home/dev/.fzf && \
